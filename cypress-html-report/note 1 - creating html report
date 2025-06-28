@@ -1,0 +1,54 @@
+cypress html report with mochawesome – setup & usage notes
+
+1. installed the mochawesome reporter:
+   > npm install --save-dev cypress-mochawesome-reporter
+
+2. updated cypress.config.js:
+
+   const { defineConfig } = require('cypress')
+
+   module.exports = defineConfig({
+     e2e: {
+       baseUrl: 'https://demoqa.com',
+       specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts}',
+       setupNodeEvents(on, config) {
+         require('cypress-mochawesome-reporter/plugin')(on)
+       },
+     },
+     reporter: 'cypress-mochawesome-reporter',
+     reporterOptions: {
+       reportDir: 'cypress/reports',
+       charts: true,
+       reportPageTitle: 'cypress test report',
+       embeddedScreenshots: true,
+       inlineAssets: true,
+       overwrite: false,
+       html: true,
+       json: true,
+       reportFilename: 'report-[status]-[datetime]',
+       timestamp: 'mmddyyyy_HHMMss',
+       quiet: true,
+       saveJson: true
+     }
+   })
+
+3. optional: add script in package.json
+
+   "scripts": {
+     "test": "cypress run",
+     "report": "npx cypress run && start cypress/reports/index.html"
+   }
+
+4. how to generate report:
+- in terminal:
+  > npx cypress run
+
+5. where to find the report:
+- html report:
+  > cypress/reports/index.html
+- json report:
+  > cypress/reports/index.json
+
+6. notes:
+- report shows full test suite, execution time, pass/fail status, and failure details.
+- good for team sharing, documentation, and ci/cd integration.

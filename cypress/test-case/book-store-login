@@ -1,0 +1,36 @@
+* Note: test case for book-store-login page
+
+TC01 - Login page: UI elements visible
+- Steps:
+  1. Visit /login
+  2. Verify username and password labels are visible
+  3. Verify Login and New User buttons exist
+  4. Verify header text is "Login"
+- Expected: All elements are correctly displayed
+- Automated: Yes
+
+TC02 - Login with valid data
+- Steps:
+  1. Type valid username and password
+  2. Click Login
+  3. Verify redirected to /profile
+- Test Data: alicia.tan92 / P@ssw0rd8!
+- Expected: Successful login and page redirect
+- Automated: Yes
+
+TC03 - Login with invalid credentials
+- Steps:
+  1. Type invalid username and password
+  2. Click Login
+  3. Check if error message is shown
+- Test Data: wrong.user / wrongPassword123
+- Expected: Show red error message: "Invalid username or password!"
+- Automated: Yes
+
+TC04 - Login with empty form
+- Steps:
+  1. Click on username and password fields without typing
+  2. Click Login
+  3. Check validation feedback
+- Expected: Fields should show red border (`is-invalid`)
+- Automated: Yes
