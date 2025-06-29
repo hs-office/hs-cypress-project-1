@@ -1,17 +1,23 @@
 name: cypress tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: '0 2 * * *'  # runs every day at 2am UTC
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
+      - name: checkout repo
+        uses: actions/checkout@v3
 
       - name: setup node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
@@ -19,4 +25,18 @@ jobs:
         run: npm install
 
       - name: run cypress tests
-        run: npx cypress run
+        run: npx cypress run --browser chrome
+
+      - name: upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: upload videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
