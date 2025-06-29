@@ -19,16 +19,10 @@ jobs:
           node-version: 18
 
       - name: install dependencies
-        run: npm install
-
-      - name: install cypress binary
-        run: npx cypress install --force
-
-      - name: verify cypress
-        run: npx cypress verify
+        run: npm ci
 
       - name: run cypress tests
-        run: npx cypress run || true  # prevent fail from stopping next steps
+        run: npx cypress run || true
 
       - name: upload screenshots
         if: always()
