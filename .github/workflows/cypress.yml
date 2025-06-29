@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
   schedule:
-    - cron: '0 2 * * *'  # runs every day at 2am UTC
+    - cron: '0 2 * * *'  # run daily at 2am UTC
 
 jobs:
   cypress-run:
@@ -25,18 +25,18 @@ jobs:
         run: npm install
 
       - name: run cypress tests
-        run: npx cypress run --browser chrome
+        run: npx cypress run
 
-      - name: upload screenshots on failure
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-
-      - name: upload videos
+      - name: upload test videos
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos
+
+      - name: upload screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
