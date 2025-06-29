@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: setup node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
@@ -22,13 +22,13 @@ jobs:
         run: npm install
 
       - name: install cypress binary
-        run: npx cypress install
+        run: npx cypress install --force
 
       - name: verify cypress
         run: npx cypress verify
 
       - name: run cypress tests
-        run: npx cypress run || true
+        run: npx cypress run
 
       - name: upload screenshots
         if: always()
@@ -43,10 +43,3 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
-
-      - name: upload report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-report
-          path: cypress/reports
