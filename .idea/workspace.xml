@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67ca7030-7be1-43e2-9501-8d430eee5c66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/cypress.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/cypress.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/screenshots/2-advanced-examples/cypress_api.cy.js/Cypress APIs -- Cypress.config() -- Get and set configuration options (failed).png" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/screenshots/2-advanced-examples/cypress_api.cy.js/Cypress APIs -- Cypress.config() -- Get and set configuration options (failed).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/screenshots/book-store/TC1 - error sample login.cy.js/error sample book store login page -- tc02 - valid login (failed).png" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/screenshots/book-store/TC1 - error sample login.cy.js/error sample book store login page -- tc02 - valid login (failed).png" afterDir="false" />
-    </list>
+    <list default="true" id="67ca7030-7be1-43e2-9501-8d430eee5c66" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
