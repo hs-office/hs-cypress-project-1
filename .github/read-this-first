@@ -1,1 +1,103 @@
-step:
+steps:
+
+1.  install cypress and mochawesome reporter
+    npm install cypress --save-dev
+    npm install cypress-mochawesome-reporter --save-dev
+
+    ------------------------------------------------
+
+2.  cypress.config.js content
+    const { defineConfig } = require('cypress')
+
+    module.exports = defineConfig({
+      e2e: {
+        baseUrl: 'https://demoqa.com',
+        specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts}',
+        setupNodeEvents(on, config) {
+          require('cypress-mochawesome-reporter/plugin')(on)
+        },
+      },
+      reporter: 'cypress-mochawesome-reporter',
+      reporterOptions: {
+        reportDir: 'cypress/reports',
+        charts: true,
+        reportPageTitle: 'cypress test report',
+        embeddedScreenshots: true,
+        inlineAssets: true,
+        overwrite: false,
+        html: true,
+        json: true,
+        reportFilename: 'report-[status]-[datetime]',
+        timestamp: 'mmddyyyy_HHMMss',
+        quiet: true,
+        saveJson: true
+      }
+    })
+
+    ------------------------------------------------
+
+3.  create .github/workflows/cypress.yml
+    name: cypress tests
+
+    on:
+      push:
+        branches:
+          - main
+
+    jobs:
+      cypress-run:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: checkout repo
+            uses: actions/checkout@v4
+
+          - name: setup node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 18
+
+          - name: install dependencies
+            run: npm ci
+
+          - name: run cypress tests
+            run: npx cypress run || true
+
+          - name: upload screenshots
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: cypress-screenshots
+              path: cypress/screenshots
+
+          - name: upload videos
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: cypress-videos
+              path: cypress/videos
+
+          - name: upload report
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: cypress-report
+              path: cypress/reports
+
+    ------------------------------------------------
+
+4.  folder structure needed - must have if not need to reinstall
+    cypress/e2e/screenshots/videos/reports
+
+    ------------------------------------------------
+
+5.  push to github
+    git add .
+    git commit -m "write some message"
+    git push origin main
+
+    ------------------------------------------------
+
+6.  check on github
+    - go to github repo → refresh → actions tab
+    - green = success/ red = fail
