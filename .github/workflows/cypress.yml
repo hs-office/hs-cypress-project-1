@@ -24,19 +24,22 @@ jobs:
       - name: install dependencies
         run: npm install
 
+      - name: verify cypress
+        run: npx cypress verify
+
       - name: run cypress tests
         run: npx cypress run
 
-      - name: upload test videos
+      - name: upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: upload videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos
-
-      - name: upload screenshots
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
